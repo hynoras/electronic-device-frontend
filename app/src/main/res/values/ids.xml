@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="productList" type="id" />
+    <item name="cartListView" type="id" />
+    <item name="addToCartButton" type="id" />
+    <item name="purchaseButton" type="id" />
+</resources>
