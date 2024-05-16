@@ -1,5 +1,6 @@
 package com.example.finalproject.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
 import android.content.Intent;
@@ -30,12 +31,12 @@ public class Login extends AppCompatActivity {
 
           Button btnSignUp2 = findViewById(R.id.btnSignUp2);
           btnSignUp2.setOnClickListener(v -> {
-               startSignUp();
+               startSignUp(this, SignUp.class);
           });
      }
 
-     public void startSignUp() {
-          Intent signUpIntent = new Intent(Login.this, SignUp.class);
+     public void startSignUp(Context context, Class<?> newActivity) {
+          Intent signUpIntent = new Intent(context, newActivity);
           startActivity(signUpIntent);
      }
 
