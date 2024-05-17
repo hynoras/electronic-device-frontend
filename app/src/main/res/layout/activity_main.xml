@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".activity.MainActivity">
 
     <LinearLayout
+        android:id="@+id/firstLayout"
         android:layout_width="match_parent"
-        android:layout_height="114dp"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_margin="30dp"
+        app:layout_constraintHeight_percent="0.10"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1" /> <!-- This view will push the ImageButton to the right -->
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/btnUser"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="right"
             android:backgroundTint="@color/white"
             app:srcCompat="@drawable/user_icon_cyan1_50x50"
@@ -29,9 +36,54 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/secondLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="30dp"
+        app:layout_constraintHeight_percent="0.20"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/firstLayout"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/welcomeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome,"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:textColor="@color/cyan1"/>
+
+        <TextView
+            android:id="@+id/welcomeTxt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Our Electronic Device Shop"
+            android:textSize="26sp"
+            android:textStyle="bold"/>
+
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:queryHint="Search..."
+            android:background="@drawable/search_view_radius"
+            android:layout_marginTop="20dp"
+            android:iconifiedByDefault="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/thirdLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="30dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/secondLayout">
 
         <TextView
             android:id="@+id/textView"
@@ -57,9 +109,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/fourthLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="30dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/thirdLayout">
 
         <TextView
             android:id="@+id/cartTextView"
@@ -85,4 +142,33 @@
 
     </LinearLayout>
 
-</LinearLayout>
+<!--    <View-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:background="@drawable/shadow_top_alt"-->
+<!--        tools:ignore="MissingConstraints,SmallSp"-->
+<!--        app:layout_constraintHeight_percent="0.103"-->
+<!--        app:layout_constraintWidth_percent="1.013"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:elevation="10dp"
+        android:background="@drawable/radius"
+        app:layout_constraintHeight_percent="0.10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
