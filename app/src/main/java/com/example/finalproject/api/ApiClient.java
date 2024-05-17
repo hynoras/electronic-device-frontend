@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final String BASE_URL = "http://0.0.0.0:3000/"; //10.45.169.13, 192.168.1.10
+    private static final String BASE_URL = "http://192.168.1.12:3000/"; //10.45.169.13, 192.168.1.10, 192.168.1.12
 
     private static Retrofit retrofit;
 
@@ -33,6 +33,10 @@ public class ApiClient {
 
     public static LoginApi getLoginApi() {
         return getRetrofitInstance().create(LoginApi.class);
+    }
+
+    public static RetrieveAllProductApi getRetrieveAllProductApi() {
+        return getRetrofitInstance().create(RetrieveAllProductApi.class);
     }
 }
 

@@ -80,12 +80,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/thirdLayout"
         android:layout_width="match_parent"
-        android:layout_height="0"
-        android:layout_marginTop="100dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="100dp"
         android:layout_marginRight="30dp"
         android:orientation="vertical"
-        app:layout_constraintHeight_percent="0.30"
+        app:layout_constraintHeight_percent="0.3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/secondLayout">
@@ -93,13 +93,13 @@
         <LinearLayout
             android:id="@+id/newArrival"
             android:layout_width="match_parent"
-            android:layout_height="0"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
             app:layout_constraintHeight_percent="0.15"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:orientation="horizontal">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/textView"
@@ -119,33 +119,42 @@
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/white"
+                android:gravity="right"
                 android:text="View all"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:backgroundTint="@color/white"
-                android:gravity="right"
                 tools:ignore="HardcodedText" />
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/productList"
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:choiceMode="multipleChoice"
-            app:layout_constraintHeight_percent="0.30"
+            app:layout_constraintHeight_percent="0.7"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/newArrival"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/newArrival">
+
+            <ListView
+                android:id="@+id/productList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:orientation="horizontal" />
+
+        </HorizontalScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="0"
-        app:layout_constraintHeight_percent="0.90"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.9"
         tools:ignore="MissingConstraints" />
 
     <LinearLayout
@@ -178,7 +187,6 @@
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="60dp"
-            android:background=""
             app:srcCompat="@drawable/user_icon_cyan1_50x50" />
 
         <ImageButton
@@ -187,7 +195,6 @@
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
-            android:background=""
             app:srcCompat="@drawable/user_icon_cyan1_50x50" />
 
         <ImageButton
@@ -196,7 +203,6 @@
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
-            android:background=""
             app:srcCompat="@drawable/user_icon_cyan1_50x50" />
 
     </LinearLayout>

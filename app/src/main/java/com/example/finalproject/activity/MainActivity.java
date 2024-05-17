@@ -3,25 +3,29 @@ package com.example.finalproject.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
-
+import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.finalproject.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-import java.util.ArrayList;
+import com.example.finalproject.ProductAdapter;
+import com.example.finalproject.R;
+import com.example.finalproject.api.ApiClient;
+import com.example.finalproject.api.RetrieveAllProductApi;
+import com.example.finalproject.model.Product;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ListView productList;
-    private ArrayList<String> products;
-
-    private ArrayAdapter<String> cartAdapter;
-    private ArrayList<String> cartItems;
+    private ProductAdapter productAdapter;
+    private RetrieveAllProductApi retrieveAllProductApi;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -29,54 +33,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize product list
         productList = findViewById(R.id.productList);
-        products = new ArrayList<>();
-        products.add("Laptop");
-        products.add("Smartphone");
-        products.add("Tablet");
-        ArrayAdapter<String> productAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, products);
-        productList.setAdapter(productAdapter);
+        retrieveAllProductApi = ApiClient.getRetrieveAllProductApi();
 
-        // Initialize cart list
-        ListView cartListView = findViewById(R.id.cartListView);
-        cartItems = new ArrayList<>();
-        cartAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, cartItems);
-        cartListView.setAdapter(cartAdapter);
-
-        // Button to add selected item to cart
-        Button addToCartButton = findViewById(R.id.addToCartButton);
-        addToCartButton.setOnClickListener(v -> {
-            int position = productList.getCheckedItemPosition();
-            if (position != ListView.INVALID_POSITION) {
-                String item = products.get(position);
-                cartItems.add(item);
-                cartAdapter.notifyDataSetChanged();
-                Toast.makeText(MainActivity.this, "Added to cart: " + item, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(MainActivity.this, "Please select a product", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Button to purchase items in the cart
-        Button purchaseButton = findViewById(R.id.purchaseButton);
-        purchaseButton.setOnClickListener(v -> {
-            if (cartItems.isEmpty()) {
-                Toast.makeText(MainActivity.this, "Your cart is empty", Toast.LENGTH_SHORT).show();
-            } else {
-                // Handle purchase logic here
-                // For demo, just display a message
-                Toast.makeText(MainActivity.this, "Purchase Successful!", Toast.LENGTH_SHORT).show();
-                cartItems.clear();
-                cartAdapter.notifyDataSetChanged();
-            }
-        });
-
-        // Handle item click in product list
-        productList.setOnItemClickListener((parent, view, position, id) -> {
-            // Handle item click if needed
-        });
-
+        fetchProducts();
         startSignUp();
     }
 
@@ -85,6 +45,28 @@ public class MainActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SignUp.class);
             startActivity(intent);
+        });
+    }
+
+    private void fetchProducts() {
+        Call<List<Product>> call = retrieveAllProductApi.retrieveAllProduct();
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Product> products = response.body();
+                    Log.d("Response", "Products: " + products.toString());
+                    productAdapter = new ProductAdapter(MainActivity.this, products);
+                    productList.setAdapter(productAdapter);
+                } else {
+                    Toast.makeText(MainActivity.this, "Failed to retrieve products", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "An error occurred", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
