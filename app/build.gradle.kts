@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.finalproject"
-        minSdk = 24
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -42,5 +42,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("org.mindrot:jbcrypt:0.4")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-
+    implementation("com.squareup.picasso:picasso:2.71828")
 }
