@@ -4,16 +4,17 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import com.example.finalproject.ProductAdapter;
+import com.example.finalproject.adapter.ProductAdapter;
 import com.example.finalproject.R;
 import com.example.finalproject.api.ApiClient;
 import com.example.finalproject.api.RetrieveAllProductApi;
@@ -23,7 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView productList;
+    private RecyclerView productList;
     private ProductAdapter productAdapter;
     private RetrieveAllProductApi retrieveAllProductApi;
 
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         productList = findViewById(R.id.productList);
+        productList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         retrieveAllProductApi = ApiClient.getRetrieveAllProductApi();
 
         fetchProducts();
