@@ -8,7 +8,8 @@ public class Product {
     private int prodQuan;
     private String prodImg;
 
-    public Product(String prodName, String prodDesc, double prodPrice, int prodQuan, String prodImg) {
+    public Product(int prodId, String prodName, String prodDesc, double prodPrice, int prodQuan, String prodImg) {
+        this.prodId = prodId;
         this.prodName = prodName;
         this.prodDesc = prodDesc;
         this.prodPrice = prodPrice;
