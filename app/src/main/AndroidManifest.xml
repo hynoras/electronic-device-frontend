@@ -25,6 +25,7 @@
 
         <activity android:name=".activity.SignUp"/>
         <activity android:name=".activity.Login"/>
+        <activity android:name=".activity.ProductDetail"/>
     </application>
 
 </manifest>

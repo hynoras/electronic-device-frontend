@@ -1,6 +1,7 @@
 package com.example.finalproject.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalproject.R;
+import com.example.finalproject.activity.ProductDetail;
 import com.example.finalproject.model.Product;
 import com.squareup.picasso.Picasso;
 
@@ -35,8 +37,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductI
     @Override
     public void onBindViewHolder(@NonNull ProductImageHolder holder, int position) {
         Product product = productList.get(position);
-//        holder.name.setText(product.getProdName());
-//        holder.price.setText(String.valueOf(product.getProdPrice()));
         Picasso.get().load(product.getProdImg()).into(holder.image);
     }
 
@@ -46,7 +46,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductI
     }
 
     public static class ProductImageHolder extends RecyclerView.ViewHolder {
-        TextView name, price;
         ImageView image;
 
         public ProductImageHolder(@NonNull View itemView) {
