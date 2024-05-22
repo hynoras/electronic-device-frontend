@@ -16,13 +16,14 @@ import retrofit2.Response;
 
 import com.example.finalproject.adapter.ProductAdapter;
 import com.example.finalproject.R;
+import com.example.finalproject.adapter.ProductDetailAdapter;
 import com.example.finalproject.api.ApiClient;
 import com.example.finalproject.api.RetrieveAllProductApi;
 import com.example.finalproject.model.Product;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ProductDetailAdapter.OnItemClickListener{
 
     private RecyclerView productList;
     private ProductAdapter productAdapter;
@@ -70,5 +71,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "An error occurred", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onItemClick(int productId) {
+        // Handle item click, e.g., navigate to detail activity
+        Intent intent = new Intent(MainActivity.this, ProductDetail.class);
+        intent.putExtra("productId", productId);
+        startActivity(intent);
     }
 }
