@@ -12,5 +12,5 @@ public interface RetrieveAllProductApi {
     Call<List<Product>> retrieveAllProduct();
 
     @GET("product/{id}")
-    Call<List<Product>> getProductById(@Path("id") int id);
+    Call<Product> getProductById(@Path("id") int id);
 }
