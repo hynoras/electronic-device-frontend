@@ -38,6 +38,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductI
     public void onBindViewHolder(@NonNull ProductImageHolder holder, int position) {
         Product product = productList.get(position);
         Picasso.get().load(product.getProdImg()).into(holder.image);
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProductDetail.class);
+            intent.putExtra("productId", product.getProdId()); // Pass prodId as int
+            context.startActivity(intent);
+        });
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalproject.R;
@@ -18,6 +19,7 @@ import com.example.finalproject.api.RetrieveAllProductApi;
 import com.example.finalproject.model.Product;
 import com.squareup.picasso.Picasso;
 
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,23 +39,26 @@ public class ProductDetail extends AppCompatActivity {
         setContentView(R.layout.product);
 
         productDetail = findViewById(R.id.productView);
+        productDetail.setLayoutManager(new LinearLayoutManager(this));
         retrieveAllProductApi = ApiClient.getRetrieveAllProductApi();
-        ProductDetailAdapter.OnItemClickListener listener = (ProductDetailAdapter.OnItemClickListener) this;
-
-        // Get the product ID from the intent
-        String productId = getIntent().getStringExtra("productId");
-        fetchProductDetails(productId);
+        int productId = getIntent().getIntExtra("productId", -1);
+        if (productId != -1) {
+            fetchProductDetails(productId);
+        } else {
+            Toast.makeText(this, "Invalid product ID", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void fetchProductDetails(int productId) {
-        Call<List<Product>> call = retrieveAllProductApi.getProductById(productId);
-        call.enqueue(new Callback<List<Product>>() {
+        Call<Product> call = retrieveAllProductApi.getProductById(productId);
+        call.enqueue(new Callback<Product>() {
             @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+            public void onResponse(Call<Product> call, Response<Product> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Product> product = response.body();
+                    Product product = response.body();
                     Log.d("Response", "Products: " + product);
-                    productDetailAdapter = new ProductDetailAdapter(listener, product);
+                    int maxQuantity = product.getProdQuan();
+                    productDetailAdapter = new ProductDetailAdapter(ProductDetail.this, Collections.singletonList(product), maxQuantity);
                     productDetail.setAdapter(productDetailAdapter);
                 } else {
                     Toast.makeText(ProductDetail.this, "Failed to retrieve products", Toast.LENGTH_SHORT).show();
@@ -61,7 +66,7 @@ public class ProductDetail extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
+            public void onFailure(Call<Product> call, Throwable t) {
                 Toast.makeText(ProductDetail.this, "An error occurred", Toast.LENGTH_SHORT).show();
             }
         });

@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,16 +25,12 @@ import java.util.List;
 public class ProductDetailAdapter extends RecyclerView.Adapter<ProductDetailAdapter.ProductDetailHolder> {
     private Context context;
     private List<Product> productList;
-    private OnItemClickListener listener;
+    private int maxQuantity;
 
-    public interface OnItemClickListener {
-        void onItemClick(int productId);
-    }
-
-    public ProductDetailAdapter(OnItemClickListener listener, List<Product> productList) {
+    public ProductDetailAdapter(Context context ,List<Product> productList, int maxQuantity) {
         this.context = context;
         this.productList = productList;
-        this.listener = listener;
+        this.maxQuantity = maxQuantity;
     }
 
     @NonNull
@@ -48,9 +48,27 @@ public class ProductDetailAdapter extends RecyclerView.Adapter<ProductDetailAdap
         holder.description.setText(product.getProdDesc());
         Picasso.get().load(product.getProdImg()).into(holder.image);
 
-        holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onItemClick(product.getProdId()); // Pass prodId to the listener
+        holder.btnBack.setOnClickListener(v -> {
+            if (context instanceof ProductDetail) {
+                ((ProductDetail) context).finish();
+            }
+        });
+
+        holder.btnIncrease.setOnClickListener(v -> {
+            int currentQuantity = Integer.parseInt(holder.quantity.getText().toString());
+            if (currentQuantity < maxQuantity) {
+                holder.quantity.setText(String.valueOf(currentQuantity + 1));
+            } else {
+                Toast.makeText(context, "Maximum quantity reached", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.btnDecrease.setOnClickListener(v -> {
+            int currentQuantity = Integer.parseInt(holder.quantity.getText().toString());
+            if (currentQuantity > 0) {
+                holder.quantity.setText(String.valueOf(currentQuantity - 1));
+            } else {
+                Toast.makeText(context, "Quantity cannot be less than 0", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -63,6 +81,9 @@ public class ProductDetailAdapter extends RecyclerView.Adapter<ProductDetailAdap
     public static class ProductDetailHolder extends RecyclerView.ViewHolder {
         TextView name, price, description;
         ImageView image;
+        ImageButton btnBack;
+        Button btnIncrease, btnDecrease;
+        EditText quantity;
 
         public ProductDetailHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,6 +91,10 @@ public class ProductDetailAdapter extends RecyclerView.Adapter<ProductDetailAdap
             name = itemView.findViewById(R.id.prodName);
             price = itemView.findViewById(R.id.prodPrice);
             description = itemView.findViewById(R.id.prodDesc);
+            btnBack = itemView.findViewById(R.id.btnBack);
+            btnIncrease = itemView.findViewById(R.id.btnIncrease);
+            btnDecrease = itemView.findViewById(R.id.btnDecrease);
+            quantity = itemView.findViewById(R.id.prodQuan);
         }
     }
 }

@@ -23,7 +23,7 @@ import com.example.finalproject.model.Product;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ProductDetailAdapter.OnItemClickListener{
+public class MainActivity extends AppCompatActivity {
 
     private RecyclerView productList;
     private ProductAdapter productAdapter;
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements ProductDetailAdap
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Product> products = response.body();
-                    Log.d("Response", "Products: " + products.toString());
+                    Log.d("Response", "Products: " + products);
                     productAdapter = new ProductAdapter(MainActivity.this, products);
                     productList.setAdapter(productAdapter);
                 } else {
@@ -73,11 +73,4 @@ public class MainActivity extends AppCompatActivity implements ProductDetailAdap
         });
     }
 
-    @Override
-    public void onItemClick(int productId) {
-        // Handle item click, e.g., navigate to detail activity
-        Intent intent = new Intent(MainActivity.this, ProductDetail.class);
-        intent.putExtra("productId", productId);
-        startActivity(intent);
-    }
 }

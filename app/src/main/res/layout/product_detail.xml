@@ -36,6 +36,7 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/btnBack"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="left"
@@ -113,9 +114,9 @@
                 android:gravity="center">
 
                 <EditText
-                    android:id="@+id/tv_number"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:id="@+id/prodQuan"
+                    android:layout_width="53dp"
+                    android:layout_height="58dp"
                     android:background="@color/lightGrey3"
                     android:gravity="center"
                     android:text="0"
@@ -123,11 +124,10 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.5"
-                    tools:layout_editor_absoluteY="4dp" />
+                    app:layout_constraintWidth_percent="0.5" />
 
                 <Button
-                    android:id="@+id/btn_decrease"
+                    android:id="@+id/btnDecrease"
                     android:layout_width="53dp"
                     android:layout_height="55dp"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -142,7 +142,7 @@
                     tools:ignore="HardcodedText" />
 
                 <Button
-                    android:id="@+id/btn_increase"
+                    android:id="@+id/btnIncrease"
                     android:layout_width="53dp"
                     android:layout_height="56dp"
                     android:backgroundTint="@color/lightGrey3"
