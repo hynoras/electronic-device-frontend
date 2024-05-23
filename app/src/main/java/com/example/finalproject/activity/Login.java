@@ -65,7 +65,6 @@ public class Login extends AppCompatActivity {
                          if (response.isSuccessful()) {
 
                               String token = response.body().getToken();
-                              // Store the token in SharedPreferences
                               SharedPreferences.Editor editor = sharedPreferences.edit();
                               editor.putString("jwt_token", token);
                               editor.apply();
