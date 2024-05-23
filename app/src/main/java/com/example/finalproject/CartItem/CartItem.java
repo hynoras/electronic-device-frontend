@@ -1,5 +1,7 @@
 package com.example.finalproject.CartItem;
 
+import java.time.temporal.TemporalField;
+
 public class CartItem {
     private String name;
     private String imageUrl;
@@ -22,7 +24,7 @@ public class CartItem {
         this.name = name;
     }
 
-    public String getImageUrl() {
+    public TemporalField getImageUrl() {
         return imageUrl;
     }
 

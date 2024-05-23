@@ -1,5 +1,6 @@
 package com.example.finalproject.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.finalproject.CartItem.CartItem;
 import com.example.finalproject.R;
 
@@ -22,9 +22,9 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
-    private Context context;
-    private List<CartItem> cartItemList;
-    private OnItemClickListener onItemClickListener;
+    private final Context context;
+    private final List<CartItem> cartItemList;
+    private final OnItemClickListener onItemClickListener;
     private Instant Glide;
 
     public CartAdapter(Context context, List<CartItem> cartItemList, OnItemClickListener onItemClickListener) {
@@ -40,6 +40,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return new CartViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         CartItem cartItem = cartItemList.get(position);
@@ -47,7 +48,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.itemPrice.setText("$" + cartItem.getPrice());
         holder.itemQuantity.setText(String.valueOf(cartItem.getQuantity()));
 
-        Glide.with((TemporalAdjuster) context).clone(cartItem.getImageUrl()).into(holder.itemImage);
+        Glide.with((TemporalAdjuster) context).get(cartItem.getImageUrl()).into(holder.itemImage);
 
         holder.buttonIncrement.setOnClickListener(v -> {
             if (onItemClickListener != null) {
