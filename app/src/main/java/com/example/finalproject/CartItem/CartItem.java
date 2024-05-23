@@ -1,5 +1,7 @@
 package com.example.finalproject.CartItem;
 
+import android.net.Uri;
+
 public class CartItem {
     private String name;
     private String imageUrl;

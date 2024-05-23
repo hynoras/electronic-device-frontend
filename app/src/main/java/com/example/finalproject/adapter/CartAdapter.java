@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalproject.CartItem.CartItem;
 import com.example.finalproject.R;
+import com.squareup.picasso.Picasso;
 
 import java.time.Instant;
 import java.time.temporal.TemporalAdjuster;
@@ -47,8 +48,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.itemName.setText(cartItem.getName());
         holder.itemPrice.setText("$" + cartItem.getPrice());
         holder.itemQuantity.setText(String.valueOf(cartItem.getQuantity()));
-
-        Glide.with((TemporalAdjuster) context).get(cartItem.getImageUrl()).into(holder.itemImage);
+        Picasso.get().load(cartItem.getImageUrl()).into(holder.itemImage);
 
         holder.buttonIncrement.setOnClickListener(v -> {
             if (onItemClickListener != null) {
