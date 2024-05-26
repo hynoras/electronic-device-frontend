@@ -7,7 +7,7 @@ import java.util.List;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface RetrieveAllProductApi {
+public interface ProductApi {
     @GET("product/getAllProduct")
     Call<List<Product>> retrieveAllProduct();
 

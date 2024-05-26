@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.finalproject.CartItem.CartItem;
+import com.example.finalproject.model.CartDetail;
 import com.example.finalproject.R;
 import com.example.finalproject.adapter.CartAdapter;
 
@@ -16,7 +16,7 @@ public class CartActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private CartAdapter cartAdapter;
-    private List<CartItem> cartItemList;
+    private List<CartDetail> cartDetailList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,32 +28,32 @@ public class CartActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Create a list of CartItems (sample data)
-        cartItemList = new ArrayList<>();
-        cartItemList.add(new CartItem("Product 1", "https://via.placeholder.com/150", 198.00, 1));
-        cartItemList.add(new CartItem("Product 2", "https://via.placeholder.com/150", 245.00, 1));
-        cartItemList.add(new CartItem("Product 3", "https://via.placeholder.com/150", 40.00, 1));
+        cartDetailList = new ArrayList<>();
+//        cartDetailList.add(new CartDetail("Product 1", "https://via.placeholder.com/150", 198.00, 1));
+//        cartDetailList.add(new CartDetail("Product 2", "https://via.placeholder.com/150", 245.00, 1));
+//        cartDetailList.add(new CartDetail("Product 3", "https://via.placeholder.com/150", 40.00, 1));
 
         // Initialize the adapter with the cart item list and set it to the RecyclerView
-        cartAdapter = new CartAdapter(this, cartItemList, new CartAdapter.OnItemClickListener() {
+        cartAdapter = new CartAdapter(this, cartDetailList, new CartAdapter.OnItemClickListener() {
             @Override
-            public void onIncrementClick(CartItem cartItem, int position) {
-                cartItem.setQuantity(cartItem.getQuantity() + 1);
+            public void onIncrementClick(CartDetail cartDetail, int position) {
+                cartDetail.setCurrQuan(cartDetail.getCurrQuan() + 1);
                 cartAdapter.notifyItemChanged(position);
             }
 
             @Override
-            public void onDecrementClick(CartItem cartItem, int position) {
-                if (cartItem.getQuantity() > 1) {
-                    cartItem.setQuantity(cartItem.getQuantity() - 1);
+            public void onDecrementClick(CartDetail cartDetail, int position) {
+                if (cartDetail.getCurrQuan() > 1) {
+                    cartDetail.setCurrQuan(cartDetail.getCurrQuan() - 1);
                     cartAdapter.notifyItemChanged(position);
                 }
             }
 
             @Override
-            public void onDeleteClick(CartItem cartItem, int position) {
-                cartItemList.remove(position);
+            public void onDeleteClick(CartDetail cartDetail, int position) {
+                cartDetailList.remove(position);
                 cartAdapter.notifyItemRemoved(position);
-                cartAdapter.notifyItemRangeChanged(position, cartItemList.size());
+                cartAdapter.notifyItemRangeChanged(position, cartDetailList.size());
             }
         });
 

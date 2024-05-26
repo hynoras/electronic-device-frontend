@@ -17,7 +17,7 @@ import com.example.finalproject.api.RegisterApi;
 import com.example.finalproject.api.ApiClient;
 import com.example.finalproject.model.User;
 
-public class SignUp extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     private RegisterApi registerAPI;
 
@@ -34,7 +34,7 @@ public class SignUp extends AppCompatActivity {
     public void startLogin() {
         Button btnLogin2 = findViewById(R.id.btnLogin2);
         btnLogin2.setOnClickListener(v -> {
-            Intent loginIntent = new Intent(SignUp.this, Login.class);
+            Intent loginIntent = new Intent(SignUpActivity.this, LoginActivity.class);
             startActivity(loginIntent);
         });
     }
@@ -55,7 +55,7 @@ public class SignUp extends AppCompatActivity {
 
             // Make sure passwords match
             if (!password.equals(confirmPassword)) {
-                Toast.makeText(SignUp.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -67,17 +67,17 @@ public class SignUp extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
-                        Toast.makeText(SignUp.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this, "User registered successfully", Toast.LENGTH_SHORT).show();
                         // Redirect to login page
                         startLogin();
                     } else {
-                        Toast.makeText(SignUp.this, "Failed to register user", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this, "Failed to register user", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    Toast.makeText(SignUp.this, "Error occurred: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Error occurred: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         });

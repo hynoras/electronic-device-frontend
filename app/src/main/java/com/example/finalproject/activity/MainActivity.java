@@ -14,11 +14,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import com.example.finalproject.adapter.ProductAdapter;
+import com.example.finalproject.adapter.ProductImageAdapter;
 import com.example.finalproject.R;
-import com.example.finalproject.adapter.ProductDetailAdapter;
 import com.example.finalproject.api.ApiClient;
-import com.example.finalproject.api.RetrieveAllProductApi;
+import com.example.finalproject.api.ProductApi;
 import com.example.finalproject.model.Product;
 
 import java.util.List;
@@ -26,8 +25,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView productList;
-    private ProductAdapter productAdapter;
-    private RetrieveAllProductApi retrieveAllProductApi;
+    private ProductImageAdapter productImageAdapter;
+    private ProductApi productApi;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         productList = findViewById(R.id.productList);
         productList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        retrieveAllProductApi = ApiClient.getRetrieveAllProductApi();
+        productApi = ApiClient.getRetrieveAllProductApi();
 
         fetchProducts();
         startSignUp();
@@ -46,21 +45,21 @@ public class MainActivity extends AppCompatActivity {
     public void startSignUp() {
         ImageButton signUpButton = findViewById(R.id.btnUser);
         signUpButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, SignUp.class);
+            Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
             startActivity(intent);
         });
     }
 
     private void fetchProducts() {
-        Call<List<Product>> call = retrieveAllProductApi.retrieveAllProduct();
+        Call<List<Product>> call = productApi.retrieveAllProduct();
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Product> products = response.body();
                     Log.d("Response", "Products: " + products);
-                    productAdapter = new ProductAdapter(MainActivity.this, products);
-                    productList.setAdapter(productAdapter);
+                    productImageAdapter = new ProductImageAdapter(MainActivity.this, products);
+                    productList.setAdapter(productImageAdapter);
                 } else {
                     Toast.makeText(MainActivity.this, "Failed to retrieve products", Toast.LENGTH_SHORT).show();
                 }
