@@ -13,24 +13,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.finalproject.CartItem.CartItem;
+import com.example.finalproject.model.CartDetail;
 import com.example.finalproject.R;
-import com.squareup.picasso.Picasso;
 
 import java.time.Instant;
-import java.time.temporal.TemporalAdjuster;
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private final Context context;
-    private final List<CartItem> cartItemList;
+    private final List<CartDetail> cartDetailList;
     private final OnItemClickListener onItemClickListener;
     private Instant Glide;
 
-    public CartAdapter(Context context, List<CartItem> cartItemList, OnItemClickListener onItemClickListener) {
+    public CartAdapter(Context context, List<CartDetail> cartDetailList, OnItemClickListener onItemClickListener) {
         this.context = context;
-        this.cartItemList = cartItemList;
+        this.cartDetailList = cartDetailList;
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -44,40 +42,38 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
-        CartItem cartItem = cartItemList.get(position);
-        holder.itemName.setText(cartItem.getName());
-        holder.itemPrice.setText("$" + cartItem.getPrice());
-        holder.itemQuantity.setText(String.valueOf(cartItem.getQuantity()));
-        Picasso.get().load(cartItem.getImageUrl()).into(holder.itemImage);
+        CartDetail cartDetail = cartDetailList.get(position);
+        holder.itemPrice.setText("$" + cartDetail.getCurrPrice());
+        holder.itemQuantity.setText(String.valueOf(cartDetail.getCurrQuan()));
 
         holder.buttonIncrement.setOnClickListener(v -> {
             if (onItemClickListener != null) {
-                onItemClickListener.onIncrementClick(cartItem, position);
+                onItemClickListener.onIncrementClick(cartDetail, position);
             }
         });
 
         holder.buttonDecrement.setOnClickListener(v -> {
             if (onItemClickListener != null) {
-                onItemClickListener.onDecrementClick(cartItem, position);
+                onItemClickListener.onDecrementClick(cartDetail, position);
             }
         });
 
         holder.buttonDelete.setOnClickListener(v -> {
             if (onItemClickListener != null) {
-                onItemClickListener.onDeleteClick(cartItem, position);
+                onItemClickListener.onDeleteClick(cartDetail, position);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return cartItemList.size();
+        return cartDetailList.size();
     }
 
     public interface OnItemClickListener {
-        void onIncrementClick(CartItem cartItem, int position);
-        void onDecrementClick(CartItem cartItem, int position);
-        void onDeleteClick(CartItem cartItem, int position);
+        void onIncrementClick(CartDetail cartDetail, int position);
+        void onDecrementClick(CartDetail cartDetail, int position);
+        void onDeleteClick(CartDetail cartDetail, int position);
     }
 
     public static class CartViewHolder extends RecyclerView.ViewHolder {

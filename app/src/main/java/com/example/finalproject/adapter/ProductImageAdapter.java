@@ -6,23 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalproject.R;
-import com.example.finalproject.activity.ProductDetail;
+import com.example.finalproject.activity.ProductDetailActivity;
 import com.example.finalproject.model.Product;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductImageHolder> {
+public class ProductImageAdapter extends RecyclerView.Adapter<ProductImageAdapter.ProductImageHolder> {
     private Context context;
     private List<Product> productList;
 
-    public ProductAdapter(Context context, List<Product> productList) {
+    public ProductImageAdapter(Context context, List<Product> productList) {
         this.context = context;
         this.productList = productList;
     }
@@ -40,8 +39,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductI
         Picasso.get().load(product.getProdImg()).into(holder.image);
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ProductDetail.class);
-            intent.putExtra("productId", product.getProdId()); // Pass prodId as int
+            Intent intent = new Intent(context, ProductDetailActivity.class);
+            intent.putExtra("productId", product.getProdId());
             context.startActivity(intent);
         });
     }
