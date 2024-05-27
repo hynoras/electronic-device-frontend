@@ -7,47 +7,35 @@
     tools:context=".CartActivity">
 
     <!-- RecyclerView for displaying cart items -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:padding="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/promoCodeLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Layout for promo code input and apply button -->
-    <LinearLayout
-        android:id="@+id/promoCodeLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:background="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHeight_percent="0.8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/totalLayout">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/promoCodeEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Promo Code"
-            android:padding="12dp"
-            android:background="@android:color/darker_gray"
-            android:layout_marginEnd="8dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/itemView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"/>
 
-        <Button
-            android:id="@+id/applyButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Apply"
-            android:background="@android:color/holo_blue_light"
-            android:padding="12dp" />
     </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/totalView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:padding="16dp"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintTop_toBottomOf="@id/itemView"
+        />
 
     <!-- Layout for total price and checkout button -->
     <LinearLayout
@@ -60,21 +48,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
-
-        <TextView
-            android:id="@+id/totalTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total (3 items) :"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/totalAmountTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$0.00"
-            android:textSize="24sp"
-            android:textStyle="bold" />
 
         <Button
             android:id="@+id/checkoutButton"

@@ -1,7 +1,9 @@
 package com.example.finalproject.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -23,7 +25,6 @@ import com.example.finalproject.model.Product;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     private RecyclerView productList;
     private ProductImageAdapter productImageAdapter;
     private ProductApi productApi;
@@ -40,14 +41,34 @@ public class MainActivity extends AppCompatActivity {
 
         fetchProducts();
         startSignUp();
+
+        ImageButton cartButton = findViewById(R.id.btnCart);
+        cartButton.setOnClickListener(v -> {
+            if (isUserLoggedIn()) {
+                startCartActivity();
+            } else {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void startCartActivity() {
+        Intent intent = new Intent(MainActivity.this, CartActivity.class);
+        startActivity(intent);
     }
 
     public void startSignUp() {
-        ImageButton signUpButton = findViewById(R.id.btnUser);
-        signUpButton.setOnClickListener(v -> {
+        ImageButton sighUpButton = findViewById(R.id.btnUser);
+        sighUpButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
             startActivity(intent);
         });
+    }
+
+    private boolean isUserLoggedIn() {
+        SharedPreferences sharedPreferences = MainActivity.this.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean("is_logged_in", false);
     }
 
     private void fetchProducts() {
