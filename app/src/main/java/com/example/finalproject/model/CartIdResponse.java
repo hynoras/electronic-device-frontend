@@ -1,6 +1,6 @@
 package com.example.finalproject.model;
 
-public class CartResponse {
+public class CartIdResponse {
     private int cartId;
 
     public int getCartId() {

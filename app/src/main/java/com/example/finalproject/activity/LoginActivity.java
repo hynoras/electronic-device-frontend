@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.finalproject.R;
 import com.example.finalproject.api.LoginApi;
 import com.example.finalproject.api.CartApi;
-import com.example.finalproject.model.CartResponse;
+import com.example.finalproject.model.CartIdResponse;
 import com.example.finalproject.model.TokenResponse;
 import com.example.finalproject.model.User;
 import com.example.finalproject.api.ApiClient;
@@ -51,11 +51,11 @@ public class LoginActivity extends AppCompatActivity {
           String token = sharedPreferences.getString("jwt_token", null);
           if (token != null) {
                CartApi cartApi = ApiClient.getCartApi();
-               Call<CartResponse> call = cartApi.getCartId("Bearer " + token); // Add "Bearer " prefix to the token
+               Call<CartIdResponse> call = cartApi.getCartId("Bearer " + token); // Add "Bearer " prefix to the token
 
-               call.enqueue(new Callback<CartResponse>() {
+               call.enqueue(new Callback<CartIdResponse>() {
                     @Override
-                    public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
+                    public void onResponse(Call<CartIdResponse> call, Response<CartIdResponse> response) {
                          if (response.isSuccessful() && response.body() != null) {
                               int cartId = response.body().getCartId();
                               // Now you have the cartId, you can use it as needed
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<CartResponse> call, Throwable t) {
+                    public void onFailure(Call<CartIdResponse> call, Throwable t) {
                          Toast.makeText(LoginActivity.this, "An error occurred", Toast.LENGTH_SHORT).show();
                     }
                });

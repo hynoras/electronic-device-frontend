@@ -48,4 +48,20 @@ public class CartDetail {
     public void setCurrQuan(int currQuan) {
         this.currQuan = currQuan;
     }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public int getTotalQuan() {
+        return totalQuan;
+    }
+
+    public void setTotalQuan(int totalQuan) {
+        this.totalQuan = totalQuan;
+    }
 }

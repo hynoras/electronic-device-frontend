@@ -1,62 +1,80 @@
 package com.example.finalproject.activity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finalproject.adapter.ProductDetailAdapter;
+import com.example.finalproject.api.ApiClient;
+import com.example.finalproject.api.CartApi;
+import com.example.finalproject.api.ProductApi;
 import com.example.finalproject.model.CartDetail;
 import com.example.finalproject.R;
 import com.example.finalproject.adapter.CartAdapter;
+import com.example.finalproject.model.Product;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CartActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerView;
+    private RecyclerView cartDetail;
     private CartAdapter cartAdapter;
-    private List<CartDetail> cartDetailList;
+    private CartApi cartApi;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        // Initialize the RecyclerView
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        cartDetail = findViewById(R.id.itemView);
+        cartDetail.setLayoutManager(new LinearLayoutManager(this));
+        cartApi = ApiClient.getCartApi();
 
-        // Create a list of CartItems (sample data)
-        cartDetailList = new ArrayList<>();
-//        cartDetailList.add(new CartDetail("Product 1", "https://via.placeholder.com/150", 198.00, 1));
-//        cartDetailList.add(new CartDetail("Product 2", "https://via.placeholder.com/150", 245.00, 1));
-//        cartDetailList.add(new CartDetail("Product 3", "https://via.placeholder.com/150", 40.00, 1));
+        int cartId = getCartIdFromSession();
+        fetchCartDetail(cartId);
 
-        // Initialize the adapter with the cart item list and set it to the RecyclerView
-        cartAdapter = new CartAdapter(this, cartDetailList, new CartAdapter.OnItemClickListener() {
+    }
+
+    private void fetchCartDetail(int cartId) {
+        Call<CartApi.CartResponse> call = cartApi.retrieveCartInfoById(cartId);
+        call.enqueue(new Callback<CartApi.CartResponse>() {
             @Override
-            public void onIncrementClick(CartDetail cartDetail, int position) {
-                cartDetail.setCurrQuan(cartDetail.getCurrQuan() + 1);
-                cartAdapter.notifyItemChanged(position);
-            }
-
-            @Override
-            public void onDecrementClick(CartDetail cartDetail, int position) {
-                if (cartDetail.getCurrQuan() > 1) {
-                    cartDetail.setCurrQuan(cartDetail.getCurrQuan() - 1);
-                    cartAdapter.notifyItemChanged(position);
+            public void onResponse(Call<CartApi.CartResponse> call, Response<CartApi.CartResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<CartDetail> cart = response.body().getCartDetails();
+                    Log.d("Response", "Products: " + cart);
+                    cartAdapter = new CartAdapter(CartActivity.this, cart);
+                    cartDetail.setAdapter(cartAdapter);
+                } else {
+                    Toast.makeText(CartActivity.this, "Failed to retrieve products", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onDeleteClick(CartDetail cartDetail, int position) {
-                cartDetailList.remove(position);
-                cartAdapter.notifyItemRemoved(position);
-                cartAdapter.notifyItemRangeChanged(position, cartDetailList.size());
+            public void onFailure(Call<CartApi.CartResponse> call, Throwable t) {
+                Log.d("Response", "Code: " + t.getMessage());
+                Toast.makeText(CartActivity.this, "An error occurred", Toast.LENGTH_SHORT).show();
             }
         });
-
-        recyclerView.setAdapter(cartAdapter);
     }
+
+    private int getCartIdFromSession() {
+        SharedPreferences sharedPreferences = CartActivity.this.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+        return sharedPreferences.getInt("cart_id", -1); // Default value -1 if cartId is not found
+    }
+
+
 }

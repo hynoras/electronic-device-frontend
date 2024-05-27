@@ -217,7 +217,7 @@
             android:layout_marginRight="60dp">
 
             <ImageButton
-                android:id="@+id/imgBtnHolder1"
+                android:id="@+id/btnCart"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
