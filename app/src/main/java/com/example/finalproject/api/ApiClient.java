@@ -45,6 +45,9 @@ public class ApiClient {
         return getRetrofitInstance().create(CartApi.class);
     }
 
+    public static OrderApi getOrderApi() {
+        return getRetrofitInstance().create(OrderApi.class);
+    }
 
 }
 
