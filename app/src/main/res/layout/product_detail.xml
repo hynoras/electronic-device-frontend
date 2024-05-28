@@ -54,6 +54,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="right"
+            android:background="@drawable/circle5"
             tools:ignore="RtlHardcoded"
             app:srcCompat="@drawable/cart_icon2"/>
 
@@ -158,15 +159,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="HardcodedText" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <EditText
-                android:id="@+id/editTextNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number"
-                tools:layout_editor_absoluteX="143dp"
-                tools:layout_editor_absoluteY="38dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

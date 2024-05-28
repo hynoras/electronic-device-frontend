@@ -6,16 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".CartActivity">
 
-    <!-- RecyclerView for displaying cart items -->
     <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="30dp"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="left"
+            android:background="@drawable/circle"
+            tools:ignore="RtlHardcoded"
+            app:srcCompat="@drawable/arrow_icon"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/itemViewHolder"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:padding="16dp"
-        app:layout_constraintHeight_percent="0.8"
+        android:layout_margin="30dp"
+        app:layout_constraintHeight_percent="0.7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -32,10 +60,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:padding="16dp"
-        app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintTop_toBottomOf="@id/itemView"
-        />
+        android:layout_margin="30dp"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintTop_toBottomOf="@id/itemViewHolder" />
 
     <!-- Layout for total price and checkout button -->
     <LinearLayout
@@ -49,14 +76,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
-            android:id="@+id/checkoutButton"
+        <ImageButton
+            android:id="@+id/btnCheckout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Proceed to Checkout"
-            android:background="@android:color/holo_blue_light"
-            android:padding="12dp"
-            android:textSize="16sp" />
+            android:background="@color/white"
+            android:src="@drawable/btn_proceed_to_checkout" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

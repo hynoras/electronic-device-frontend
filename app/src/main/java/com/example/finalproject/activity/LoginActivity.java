@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
           startActivity(signUpIntent);
      }
 
-     private int getCartIdFromServer() {
+     private void getCartIdFromServer() {
           String token = sharedPreferences.getString("jwt_token", null);
           if (token != null) {
                CartApi cartApi = ApiClient.getCartApi();
@@ -58,8 +58,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(Call<CartIdResponse> call, Response<CartIdResponse> response) {
                          if (response.isSuccessful() && response.body() != null) {
                               int cartId = response.body().getCartId();
-                              // Now you have the cartId, you can use it as needed
-                              // For example, you can store it in SharedPreferences
                               SharedPreferences.Editor editor = sharedPreferences.edit();
                               editor.putInt("cart_id", cartId);
                               editor.apply();
@@ -74,9 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                });
           }
-          return 0;
      }
-
 
      public void fetchLogin() {
 
@@ -98,14 +94,15 @@ public class LoginActivity extends AppCompatActivity {
                          if (response.isSuccessful()) {
 
                               String token = response.body().getToken();
+                              int userId = response.body().getId();
+
                               SharedPreferences.Editor editor = sharedPreferences.edit();
                               editor.putString("jwt_token", token);
                               editor.putBoolean("is_logged_in", true);
-
-                              int cartId = getCartIdFromServer();
-                              editor.putInt("cartId", cartId);
-
+                              editor.putInt("user_id", userId);
                               editor.apply();
+
+                              getCartIdFromServer();
 
                               Toast.makeText(LoginActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
                               Intent homeIntent = new Intent(LoginActivity.this, MainActivity.class);
