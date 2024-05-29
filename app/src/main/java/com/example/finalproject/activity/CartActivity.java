@@ -2,9 +2,11 @@ package com.example.finalproject.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,9 +45,30 @@ public class CartActivity extends AppCompatActivity {
         cartDetail.setLayoutManager(new LinearLayoutManager(this));
         cartApi = ApiClient.getCartApi();
 
+        ImageButton btnCheckout = findViewById(R.id.btnCheckout);
+        btnCheckout.setOnClickListener(v -> {
+            startActivity(this, CheckoutActivity.class);
+        });
+
+        ImageButton btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            backToPreviousActivity(this);
+        });
+
         int cartId = getCartIdFromSession();
         fetchCartDetail(cartId);
 
+    }
+
+    public void startActivity(Context context, Class<?> newActivity) {
+        Intent Intent = new Intent(context, newActivity);
+        startActivity(Intent);
+    }
+
+    public void backToPreviousActivity(Context context) {
+        if (context instanceof ProductDetailActivity) {
+            ((ProductDetailActivity) context).finish();
+        }
     }
 
     private void fetchCartDetail(int cartId) {

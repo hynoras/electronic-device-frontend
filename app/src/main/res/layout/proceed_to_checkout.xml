@@ -50,7 +50,7 @@
         android:id="@+id/orderInfoLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintHeight_percent="0.34"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Payment method:"/>
+                android:text="Delivery address:"/>
 
             <EditText
                 android:id="@+id/shippingAddr"
@@ -192,6 +192,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
+            android:id="@+id/btnPlaceOrder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Place order"
