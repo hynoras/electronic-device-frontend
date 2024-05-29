@@ -27,6 +27,9 @@
         <activity android:name=".activity.LoginActivity"/>
         <activity android:name=".activity.ProductDetailActivity"/>
         <activity android:name=".activity.CartActivity"/>
+        <activity
+            android:name=".activity.CheckoutActivity"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>
